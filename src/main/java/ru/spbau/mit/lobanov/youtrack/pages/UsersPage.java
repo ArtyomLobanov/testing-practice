@@ -108,26 +108,4 @@ public class UsersPage {
             cancelButton.click();
         }
     }
-
-    public class WebUserPanel {
-        private final String login;
-        private final WebButton deleteUser;
-
-        private WebUserPanel(String login, WebButton deleteUser) {
-            this.login = login;
-            this.deleteUser = deleteUser;
-        }
-
-        public String getLogin() {
-            return login;
-        }
-
-        public void delete() {
-            if (deleteUser == null) {
-                throw new RuntimeException("Unable to delete user: " + login);
-            }
-            deleteUser.click();
-            driver.switchTo().alert().accept();
-        }
-    }
 }

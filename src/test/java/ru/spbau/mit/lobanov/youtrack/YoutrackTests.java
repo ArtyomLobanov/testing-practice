@@ -89,6 +89,23 @@ public class YoutrackTests {
     }
 
     @Test
+    public void cancellationTest() throws Exception {
+        final WebDriver driver = new FirefoxDriver();
+        LoginPage.open(driver, host).login("root", "root");
+        final UsersPage page = UsersPage.open(driver, host);
+        final String login = generateUserName(new HashSet<>(page.getUsers()), "_user");
+        final UsersPage.CreateUserDialog dialog = page.openCreateUserDialog();
+        dialog.setLogin(login);
+        dialog.setPassword("password");
+        dialog.setPasswordConfirm("password");
+        dialog.cancel();
+        Utils.sleep(200);
+        page.refresh();
+        assertFalse(page.getUsers().contains(login));
+        driver.quit();
+    }
+
+    @Test
     public void mismatchedPasswordsTest() throws Exception {
         final WebDriver driver = new FirefoxDriver();
         LoginPage.open(driver, host).login("root", "root");
